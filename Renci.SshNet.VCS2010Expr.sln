@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renci.SshNet", "Renci.SshNet\Renci.SshNet.csproj", "{EC7D0054-1510-44E0-9A53-B6768B9D084F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Essai_SFTP", "Essai_SFTP\Essai_SFTP.csproj", "{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F} = {EC7D0054-1510-44E0-9A53-B6768B9D084F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,18 +18,30 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x64.ActiveCfg = Debug|x64
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x64.Build.0 = Debug|x64
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x86.ActiveCfg = Debug|x86
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x86.Build.0 = Debug|x86
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x64.ActiveCfg = Release|x64
-		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x64.Build.0 = Release|x64
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|Any CPU.ActiveCfg = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|Any CPU.Build.0 = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x64.ActiveCfg = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x64.Build.0 = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x86.ActiveCfg = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Debug|x86.Build.0 = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|Any CPU.ActiveCfg = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|Any CPU.Build.0 = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x64.ActiveCfg = Release|x86
+		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x64.Build.0 = Release|x86
 		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x86.ActiveCfg = Release|x86
 		{EC7D0054-1510-44E0-9A53-B6768B9D084F}.Release|x86.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|Any CPU.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|Any CPU.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|x64.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|x64.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|x86.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Debug|x86.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|Any CPU.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|Any CPU.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|x64.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|x64.Build.0 = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|x86.ActiveCfg = Release|x86
+		{B145EBF0-2782-4FCC-96E5-C5C81A178D7B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
