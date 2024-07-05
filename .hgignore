@@ -1,0 +1,9 @@
+syntax: glob
+
+.git/
+*.suo
+*.csproj.user
+bin/
+obj/
+.DS_Store
+

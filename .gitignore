@@ -1,0 +1,7 @@
+.hg/
+*.suo
+*.csproj.user
+bin/
+obj/
+.DS_Store
+
