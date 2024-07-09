@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("Test_SSH")]
-[assembly: AssemblyDescription("SSH direct commands' test program for SSH.NET")]
+[assembly: AssemblyDescription("SSH session test program for SSH.NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Renci")]
 [assembly: AssemblyProduct("SSH.NET")]

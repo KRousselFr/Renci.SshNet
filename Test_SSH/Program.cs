@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 using Renci.SshNet;
 
@@ -10,16 +10,21 @@ namespace Test_SSH
 {
     class Program
     {
-
         /* === CONSTANTES === */
 
         /* ~~ Connection parameters for the SSH test service ~~ */
-        private const string SSH_HOST = "192.168.56.101";   /* VirtualBox */
+        private const string SSH_HOST = "192.168.56.104";   /* VirtualBox */
         private const string SSH_USER = "setup";
         private const string SSH_PASS = "setup";
 
         /* Chars in returned strings we don't want to print */
         private static readonly char[] UNWANTED_CHARS = { ' ', '\n' };
+
+        /* delay in milliseconds to allow command execution */
+        private const int DELAY_MS_CMD_EXEC = 100;
+        
+        /* Buffer size for SSH transmissions */
+        private const int SSH_BUFFER_SIZE = 4096;
 
 
         /* === PRIVATE UTILITY METHODS === */
@@ -60,6 +65,21 @@ namespace Test_SSH
             }
         }
 
+        private static string RunShellCommand(string cmd,
+                                              ShellStream shs)
+        {
+            shs.WriteLine(cmd);
+            /* wait a little to let command execute */
+            Thread.Sleep(DELAY_MS_CMD_EXEC);
+            /* read command response (wait for new prompt) */
+            string rep = shs.Expect(new Regex("([$#])"),
+                                    new TimeSpan(0, 0, 10));
+            /* empty the shell's incoming buffer */
+            shs.Read();
+            /* return the command's response */
+            return rep;
+        }
+
 
         /* === PROGRAM'S ENTRY POINT === */
 
@@ -97,14 +117,79 @@ namespace Test_SSH
                 Console.Out.WriteLine();
                 Console.Out.Flush();
 
-                /* show current identity (login) on SSH server */
-                Console.Out.WriteLine("Current identity on server:");
-                SshCommand cmdWho = sshc.RunCommand("who am i");
-                CheckForCmdError(cmdWho);
-                Console.Out.WriteLine("\"{0}\"",
-                                      cmdWho.Result.Trim(UNWANTED_CHARS));
+                /* opens a SSH shell proper */
+                Console.Out.Write("Starting shell... ");
+                ShellStream shStream = sshc.CreateShellStream("VT",
+                                                              132, 24,
+                                                              1024, 768,
+                                                              SSH_BUFFER_SIZE);
+                string prompt = shStream.Expect(new Regex("[$]"));
+                Console.Out.WriteLine("OK.");
                 Console.Out.WriteLine();
                 Console.Out.Flush();
+
+                /* show current identity (login) on SSH server */
+                Console.Out.WriteLine("Current identity on server:");
+                string repWho = RunShellCommand("echo $USER", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repWho.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* show shell environment variables */
+                Console.Out.WriteLine("Shell Environment:");
+                string repEnv = RunShellCommand("env", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repEnv.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* switch to super-user ('root') */
+                Console.Out.Write("Switching to super-user ('root')... ");
+                string repSu = RunShellCommand("su - root", shStream);
+                Console.Out.WriteLine("OK.");
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* show NEW current identity (login) on SSH server */
+                Console.Out.WriteLine("Current identity on server:");
+                repWho = RunShellCommand("echo $USER", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repWho.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* show NEW shell environment variables */
+                Console.Out.WriteLine("Shell Environment:");
+                repEnv = RunShellCommand("env", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repEnv.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* revert to first user account */
+                Console.Out.Write("Reverting to '{0}' user... ", SSH_USER);
+                string repExit = RunShellCommand("exit", shStream);
+                Console.Out.WriteLine("OK.");
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* show LAST current identity (login) on SSH server */
+                Console.Out.WriteLine("Current identity on server:");
+                repWho = RunShellCommand("echo $USER", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repWho.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
+                /* show LAST shell environment variables */
+                Console.Out.WriteLine("Shell Environment:");
+                repEnv = RunShellCommand("env", shStream);
+                Console.Out.WriteLine("\"{0}\"",
+                                      repEnv.Trim(UNWANTED_CHARS));
+                Console.Out.WriteLine();
+                Console.Out.Flush();
+
 
                 /* TODO: add other commands here, if needed */
 
